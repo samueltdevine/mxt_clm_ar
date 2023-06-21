@@ -6,7 +6,8 @@
 		  <style>
       body {
 	margin: 0;
-      }
+    font-family: helvetica;
+	  }
       #container {
 	width: 100vw;
 	height: 100vh;
@@ -19,12 +20,42 @@
 	left: 0;
 	z-index: 2;
       }
+	  .header-box{
+		  width: 100vw;
+		  height: 36px;
+	  }
+	  .header {
+		  font-size: 36px;
+		  font-weight: 700;
+	  }
+	  .flex{
+		  display: flex;
+		  flex-direction: column;
+	  }
+	  .button{
+		  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+	  }
+	  .button:hover{
+		  border-color: orange;
+		  color: orange;
+	  }
+	  
     </style>
 	</head>
 	<body>
-		MXT Creative Little Monsters
-      <button id="startButton">Start</button>
-      <button id="stopButton">Stop</button>
+		<div class="flex">
+		<div class="header-box">
+		<span class="header">MXT Creative Little Monsters</span>
+			</div>
+		 <br/>
+      <button class="button" id="startButton">Start</button>
+      <button class="button" id="stopButton">Stop</button>
+	  </div>
 	   <div id="container">
     </div>
 		<script type="module" src="/main.js"></script>
