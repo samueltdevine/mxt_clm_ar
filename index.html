@@ -3,11 +3,30 @@
 	<head lang="en">
 		<meta charset="utf-8">
 		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
+		  <style>
+      body {
+	margin: 0;
+      }
+      #container {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+      }
+      #control {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+      }
+    </style>
 	</head>
 	<body>
+		MXT Creative Little Monsters
+      <button id="startButton">Start</button>
+      <button id="stopButton">Stop</button>
+	   <div id="container">
+    </div>
 		<script type="module" src="/main.js"></script>
 	</body>
 </html>

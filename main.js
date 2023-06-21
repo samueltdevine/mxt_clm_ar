@@ -1,41 +1,31 @@
 import * as THREE from "three";
-import { ARButton } from "three/examples/jsm/webxr/ARButton";
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
+const mindarThree = new MindARThree({
+  container: document.querySelector("#container"),
+  imageTargetSrc: "/cover.mind",
+});
+const { renderer, scene, camera } = mindarThree;
+const anchor = mindarThree.addAnchor(0);
+const geometry = new THREE.PlaneGeometry(1, 0.55);
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ffff,
+  transparent: true,
+  opacity: 0.5,
+});
+const plane = new THREE.Mesh(geometry, material);
 
-const mindARThree = new MindARThree({
-	container: document.querySelector('#container'),
-	imageTargetSrc: 
-})
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.xr.enabled = true;
-document.body.appendChild(renderer.domElement);
-const button = ARButton.createButton(renderer);
-document.body.appendChild(button);
-
-const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-camera.position.z = 5;
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render(scene, camera);
-}
-
-animate();
+anchor.group.add(plane);
+const start = async () => {
+  await mindarThree.start();
+  renderer.setAnimationLoop(() => {
+    renderer.render(scene, camera);
+  });
+};
+const startButton = document.querySelector("#startButton");
+startButton.addEventListener("click", () => {
+  start();
+});
+stopButton.addEventListener("click", () => {
+  mindarThree.stop();
+  mindarThree.renderer.setAnimationLoop(null);
+});
