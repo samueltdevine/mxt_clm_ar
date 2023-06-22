@@ -3,6 +3,9 @@ import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 const mindarThree = new MindARThree({
   container: document.querySelector("#container"),
   imageTargetSrc: "/cover.mind",
+  filterBeta: 0.001,
+  filterMinCF: 0.00005,
+  missTolerance: 10,
 });
 
 function degToRad(degrees) {
@@ -22,38 +25,61 @@ const material = new THREE.MeshBasicMaterial({
 const plane = new THREE.Mesh(geometry, material);
 geometry.translate(0, 0, 0);
 
+const videos = [];
+
+const idToVideoMat = (id) => {
+  const video = document.getElementById(id);
+  videos.push(video);
+  const texture = new THREE.VideoTexture(video);
+  texture.format = THREE.RGBAFormat;
+  const materialVideo = new THREE.MeshBasicMaterial({
+    map: texture,
+    alphaMap: texture,
+    transparent: true,
+    opacity: 100,
+  });
+  return materialVideo;
+};
+
+const rotBack = degToRad(33);
+
+const coverGroup = new THREE.Group();
+
 const geoYellow = new THREE.PlaneGeometry(7.0, 6.72);
-
-const videoYellow = document.getElementById("videoYellow");
-videoYellow.play();
-const textureYellow = new THREE.VideoTexture(videoYellow);
-textureYellow.format = THREE.RGBAFormat;
-
-// const videoYellowAlpha = document.getElementById("videoYellowAlpha");
-
-// const textureYellowAlpha = new THREE.VideoTexture(videoYellowAlpha);
-// textureYellowAlpha.format = THREE.RGBAFormat;
-
-// videoYellow.muted = true;
-
-// videoYellowAlpha.muted = true;
-
-const materialYellow = new THREE.MeshBasicMaterial({
-  map: textureYellow,
-  alphaMap: textureYellow,
-  // color: 0x00ff00,
-  transparent: true,
-  opacity: 90,
-});
-const planeYellow = new THREE.Mesh(geoYellow, materialYellow);
+const yellowMat = idToVideoMat("videoYellow");
+const planeYellow = new THREE.Mesh(geoYellow, yellowMat);
 geoYellow.translate(-3, 2, 2);
-geoYellow.rotateX(degToRad(45));
+geoYellow.rotateX(rotBack);
 geoYellow.scale(1 / 14, 1 / 14, 1 / 14);
+coverGroup.add(planeYellow);
 
-anchor.group.add(planeYellow);
-// anchor.group.add(plane);
-// videoYellowAlpha.play();
-// videoYellow.play();
+const geoPink = new THREE.PlaneGeometry(7.0, 6.72);
+const pinkMat = idToVideoMat("videoPink");
+const planePink = new THREE.Mesh(geoPink, pinkMat);
+geoPink.translate(-3, 2, 1);
+geoPink.rotateX(rotBack);
+geoPink.scale(1 / 14, 1 / 14, 1 / 14);
+coverGroup.add(planePink);
+
+const geoOrange = new THREE.PlaneGeometry(7.0, 6.72);
+const orangeMat = idToVideoMat("videoOrange");
+const planeOrange = new THREE.Mesh(geoOrange, orangeMat);
+geoOrange.translate(3.5, 2, 2);
+geoOrange.rotateX(rotBack);
+geoOrange.scale(1 / 14, 1 / 14, 1 / 14);
+coverGroup.add(planeOrange);
+
+const geoGreen = new THREE.PlaneGeometry(7.0, 6.72);
+const greenMat = idToVideoMat("videoGreen");
+const planeGreen = new THREE.Mesh(geoGreen, greenMat);
+geoGreen.translate(1, 1, 3);
+geoGreen.rotateX(rotBack);
+geoGreen.scale(1 / 14, 1 / 14, 1 / 14);
+coverGroup.add(planeGreen);
+
+videos.forEach((video) => video.play());
+coverGroup.translateY(-0.1);
+anchor.group.add(coverGroup);
 
 const start = async () => {
   await mindarThree.start();
