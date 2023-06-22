@@ -104,6 +104,7 @@ geoGreen.scale(1 / 14, 1 / 14, 1 / 14);
 coverGroup.add(planeGreen);
 
 videos.forEach((video) => video.play());
+
 coverGroup.translateY(-0.1);
 anchor.group.add(coverGroup);
 
