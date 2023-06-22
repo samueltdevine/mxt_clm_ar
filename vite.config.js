@@ -1,8 +1,12 @@
-import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react'
+const path = require('path')
+const { defineConfig } = require('vite')
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [],
-  base: '/mxt_clm_ar',
-})
+module.exports = defineConfig({
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'lib/main.js'),
+      name: 'mind-ar',
+      fileName: (format) => `mind-ar.${format}.js`
+    }
+  }
+});

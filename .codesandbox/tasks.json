@@ -12,7 +12,10 @@
     "npx vite": {
       "name": "npx vite",
       "command": "npx vite",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 5173
+      }
     }
   }
 }

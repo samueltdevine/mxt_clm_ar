@@ -107,6 +107,8 @@ coverGroup.translateY(-0.1);
 anchor.group.add(coverGroup);
 
 const start = async () => {
+  videos.forEach((video) => video.play());
+
   const header = document.getElementById("header");
 videos.forEach((video) => video.play());
 
