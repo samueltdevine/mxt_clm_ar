@@ -63,6 +63,9 @@ const idToVideoMat = (id) => {
     alphaMap: texture,
     transparent: true,
     opacity: 100,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    depthTest: false,
   });
   return materialVideo;
 };
@@ -110,7 +113,7 @@ const start = async () => {
   videos.forEach((video) => video.play());
 
   const header = document.getElementById("header");
-videos.forEach((video) => video.play());
+  videos.forEach((video) => video.play());
 
   header.style.display = "none";
   const container = document.querySelector("#container");
