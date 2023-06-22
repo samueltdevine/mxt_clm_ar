@@ -103,12 +103,13 @@ geoGreen.rotateX(rotBack);
 geoGreen.scale(1 / 14, 1 / 14, 1 / 14);
 coverGroup.add(planeGreen);
 
-videos.forEach((video) => video.play());
 coverGroup.translateY(-0.1);
 anchor.group.add(coverGroup);
 
 const start = async () => {
   const header = document.getElementById("header");
+videos.forEach((video) => video.play());
+
   header.style.display = "none";
   const container = document.querySelector("#container");
   container.style.display = "block";
