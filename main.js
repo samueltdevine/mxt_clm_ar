@@ -1,4 +1,4 @@
-giimport * as THREE from "three";
+import * as THREE from "three";
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 
 const container = document.querySelector("#container");
