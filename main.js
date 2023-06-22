@@ -1,12 +1,20 @@
 import * as THREE from "three";
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
+
+const container = document.querySelector("#container");
+container.addEventListener("targetFound", (event) => {
+  console.log("target found");
+});
+
 const mindarThree = new MindARThree({
   container: document.querySelector("#container"),
   imageTargetSrc: "/cover.mind",
   filterBeta: 0.001,
   filterMinCF: 0.00005,
   missTolerance: 10,
+  uiScanning: "no",
 });
+console.log(mindarThree);
 
 function degToRad(degrees) {
   var pi = Math.PI;
@@ -14,7 +22,25 @@ function degToRad(degrees) {
 }
 
 const { renderer, scene, camera } = mindarThree;
+
+scene.backgroundIntensity = 0;
 const anchor = mindarThree.addAnchor(0);
+const anchors = mindarThree.anchors;
+console.log("anchors", anchors);
+anchors[0].onTargetFound = () => {
+  console.log("found");
+  renderer.setClearColor(0x272727, 0.95);
+  // background.backgroundIntensity = 0.01;
+};
+anchors[0].onTargetLost = () => {
+  console.log("lost");
+  renderer.setClearColor(0x272727, 0.0);
+};
+
+// // detect target lost
+// target.addEventListener("onTargetLost", (event) => {
+//   console.log("target lost");
+// });
 const geometry = new THREE.PlaneGeometry(1, 0.55);
 
 const material = new THREE.MeshBasicMaterial({
